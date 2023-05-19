@@ -38,6 +38,15 @@
    </div>
  </nav>
 <a href="http://127.0.0.1:5000/new_post/">New post</a>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
  <main role="main" class="container">
    {% block content %}
    {% endblock %}
