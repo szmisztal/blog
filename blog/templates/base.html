@@ -30,7 +30,7 @@
    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
      <ul class="navbar-nav mr-auto">
      </ul>
-     {% if session.logged_in %}
+     {% if session['logged_in'] %}
        <form class="form-inline my-2 my-lg-0" action="{{ url_for('logout') }}" method="POST">
          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Log out</button>
        </form>
@@ -47,6 +47,8 @@
      </form>
    </div>
  </nav>
+<a href="http://127.0.0.1:5000">Homepage</a>
+<br>
 <a href="http://127.0.0.1:5000/new_post/">New post</a>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
