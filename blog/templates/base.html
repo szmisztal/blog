@@ -22,7 +22,7 @@
 
 <body>
  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-   <a class="navbar-brand" href="#">My blog</a>
+   <a class="navbar-brand" href="http://127.0.0.1:5000">My blog</a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
@@ -47,9 +47,12 @@
      </form>
    </div>
  </nav>
-<a href="http://127.0.0.1:5000">Homepage</a>
-<br>
-<a href="http://127.0.0.1:5000/new_post/">New post</a>
+	<a href="http://127.0.0.1:5000">Homepage</a>
+	<br>
+	<a href="http://127.0.0.1:5000/new_post/">New post</a>
+	<br>
+	<a href="http://127.0.0.1:5000/drafts/">Drafts</a>
+	<br>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
