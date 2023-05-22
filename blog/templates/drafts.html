@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table">
+   <thead>
+     <tr>
+       <th scope="col">Date</th>
+       <th scope="col">Title</th>
+       <th scope="col">Body</th>
+       <th scope="col">Actions</th>
+     </tr>
+   </thead>
+   <tbody>
+     {% for post in drafts %}
+     <tr>
+       <td>
+           {{ post.pub_date.strftime('%Y-%m-%d') }}
+       </td>
+       <td>
+           <a href="{{ url_for('create_or_edit_entry', entry_id=post.id) }}">
+               {{ post.title }}
+           </a>
+       </td>
+       <td>{{ post.body|truncate(100, true) }}</td>
+       <td>
+           <form class="d-inline-block" action="{{ url_for('delete_entry', entry_id=post.id) }}" method="POST" onsubmit="return confirm('Do you really want to delete this post?');">
+               <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+           </form>
+       </td>
+     </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+
+{% endblock %}
