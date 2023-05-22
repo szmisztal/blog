@@ -52,7 +52,7 @@ def create_or_edit_entry(entry_id = None):
             errors = form.errors
     return render_template("entry_form.html", form = form, errors = errors)
 
-@app.route("/delete_entry/<int:entry_id>", methods=["POST"])
+@app.route("/delete_entry/<int:entry_id>", methods = ["POST"])
 @login_required
 def delete_entry(entry_id):
     entry = Entry.query.get_or_404(entry_id)
@@ -60,6 +60,20 @@ def delete_entry(entry_id):
     db.session.commit()
     flash("Post deleted")
     return redirect(url_for('base'))
+
+@app.route("/search_entry", methods = ["POST", "GET"])
+def search_entry():
+    if request.method == "POST":
+        title_entry = request.form.get("title_entry")
+        entry = Entry.query.filter_by(title = title_entry).first()
+        if entry:
+            return render_template("entry.html", entry = entry)
+        else:
+            flash("That post doesn't exist.")
+            return redirect(url_for('base'))
+    else:
+        flash("Invalid request method.")
+        return redirect(url_for('base'))
 
 @app.route("/login/", methods = ["GET", "POST"])
 def login():
