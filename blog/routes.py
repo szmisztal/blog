@@ -17,6 +17,12 @@ def base():
     all_posts = Entry.query.filter_by(is_published = True).order_by(Entry.pub_date.desc())
     return render_template("homepage.html", all_posts = all_posts)
 
+@app.route("/drafts/", methods = ["GET"])
+@login_required
+def list_drafts():
+    drafts = Entry.query.filter_by(is_published = False).order_by(Entry.pub_date.desc())
+    return render_template("drafts.html", drafts = drafts)
+
 @app.route("/new_post/", methods = ["GET", "POST"])
 @app.route("/edit_post/<int:entry_id>", methods = ["GET", "POST"])
 @login_required
@@ -40,11 +46,20 @@ def create_or_edit_entry(entry_id = None):
                 )
                 db.session.add(entry)
             db.session.commit()
-            flash("Post saved !")
+            flash("Post saved.")
             return redirect(url_for('base'))
         else:
             errors = form.errors
     return render_template("entry_form.html", form = form, errors = errors)
+
+@app.route("/delete_entry/<int:entry_id>", methods=["POST"])
+@login_required
+def delete_entry(entry_id):
+    entry = Entry.query.get_or_404(entry_id)
+    db.session.delete(entry)
+    db.session.commit()
+    flash("Post deleted")
+    return redirect(url_for('base'))
 
 @app.route("/login/", methods = ["GET", "POST"])
 def login():
